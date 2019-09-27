@@ -1,0 +1,209 @@
+{
+  "locations": [
+    { "name": "CROSSROADS", "baseDescription": "You're standing at a cross-roads."},
+    { "name": "VILLAGEPATH",  "baseDescription": "You're standing on a narrow path."},
+    { "name": "HOUSE",  "baseDescription": "You're at the entrance to a small house"},
+    { "name": "ROOM",  "baseDescription": "You're in a small room."},
+    { "name": "STAIRCASE-GROUND",  "baseDescription": "You're standing at the foot of a wooden staircase."},
+    { "name": "STAIRCASE-FIRST",  "baseDescription": "You're standing at the top of a wooden staircase."},
+    { "name": "SHOP", "baseDescription": "You're standing at the entrance to a shop"},
+    { "name": "SHOPFLOOR", "baseDescription": "You're standing in a shop"},
+    { "name": "FORESTPATH",  "baseDescription": "You're standing on path through a dense forest"},
+    { "name": "LAKEPATH",  "baseDescription": "You're on a path near a lake."},
+    { "name": "FARMPATH",  "baseDescription": "You're on a worn dirt track through a large area of farmland."},
+    { "name": "WHEATFIELD",  "baseDescription": "You're in the midst of a large wheat field."},
+    { "name": "SHEEPFIELD",  "baseDescription": "You're in a small fenced enclosure."}
+  ],
+  "startLocation": "WHEATFIELD",
+  "dialogue": [
+    {
+      "name": "FARMER_OPENING",
+      "characterText": "Hello, what are you doing on my farm?",
+      "nextActionType": "CHOICE",
+      "choices": "FARMER_OPENING_CHOICES"
+    },
+    {
+      "name": "FARMER_LOST",
+      "playerText": "I'm lost, where am I?",
+      "nextActionType": "NONE",
+      "characterText": "This is Middleburgh Farm."
+    },
+    {
+      "name": "FARMER_OPENING",
+      "characterText": "Hello, welcome to my shop!",
+      "nextActionType": "NONE"
+    }
+  ],
+  "dialogueChoices": [
+    {
+      "name": "FARMER_OPENING_CHOICES",
+      "options": [
+        "FARMER_LOST"
+      ]
+    }
+  ],
+  "things": [
+    {
+      "type": "Door",
+      "name": "DOOR",
+      "location1": "HOUSE",
+      "location2": "ROOM",
+      "direction": "NORTH",
+      "descriptionTo2": "To the NORTH is a door to the house.",
+      "descriptionTo1": "To the SOUTH is the door to the outside.",
+      "open": false
+    },
+    {
+      "type": "Door",
+      "name": "SHOP-DOOR",
+      "location1": "SHOP",
+      "location2": "SHOPFLOOR",
+      "direction": "SOUTH",
+      "descriptionTo2": "To the SOUTH is a door to the shop.",
+      "descriptionTo1": "To the NORTH is the door to the outside.",
+      "open": true
+    },
+    {
+      "type": "NPC",
+      "name": "Highwayman",
+      "description": "He's after your wallet.",
+      "health": 5,
+      "combatData": {
+        "aggressive": true,
+        "damageMin": 1,
+        "damageMax": 2,
+        "attackSkill": 2,
+        "dodgeSkill": 2
+      },
+      "talks": false,
+      "openingDialog": null,
+      "loot": [
+        {
+          "type": "Equipment",
+          "name": "CAPE",
+          "description": "A black cape",
+          "slot": "BACK",
+          "defense": 1
+        }
+      ]
+    },
+    {
+      "type": "NPC",
+      "name": "Farmer",
+      "describe": "He's hard at work, harvesting the wheat",
+      "health": 10,
+      "combatData": {
+        "aggressive": false,
+        "damageMin": 1,
+        "damageMax": 2,
+        "attackSkill": 1,
+        "dodgeSkill": 1
+      },
+      "talks": true,
+      "openingDialogue": "FARMER_OPENING"
+    },
+    {
+      "type": "Weapon",
+      "name": "SWORD",
+      "description": "A bronze sword",
+      "slot": "MAIN_HAND",
+      "skill": "SWORDS",
+      "damageMin": 2,
+      "damageMax": 12
+    },
+    {
+      "type": "Shopkeeper",
+      "name": "Shopkeeper",
+      "description": "Runs the local shop",
+      "health": 10,
+      "combatData": {
+        "aggressive": false,
+        "damageMin": 1,
+        "damageMax": 2,
+        "attackSkill": 1,
+        "dodgeSkill": 1
+      },
+      "talks": true,
+      "openingDialogue": "SHOPKEEPER_OPENING",
+      "shopItems": [
+        {
+          "item": {
+            "type": "Item",
+            "name": "TINDERBOX",
+            "description": "A small box with some steel and flint for starting fires"
+          },
+          "quantity": 1,
+          "price": 1
+        }
+      ]
+    }
+  ],
+  "exits": [
+    { "type": "DEFAULT", "from": "CROSSROADS", "to": "FORESTPATH", "direction": "NORTH", "description": "To the NORTH the path winds through a large forest"},
+    { "type": "DEFAULT", "from": "CROSSROADS", "to": "FARMPATH", "direction": "EAST", "description": "To the EAST the path continues across open farmland"},
+    { "type": "DEFAULT", "from": "CROSSROADS", "to": "LAKEPATH", "direction": "SOUTH", "description": "To the SOUTH the path heads towards a small lake"},
+    { "type": "DEFAULT", "from": "CROSSROADS", "to": "VILLAGEPATH", "direction": "WEST", "description": "To the WEST the path heads past a house and shop"},
+    { "type": "DEFAULT", "from": "VILLAGEPATH", "to": "HOUSE", "direction": "NORTH", "description": "To the NORTH is a small house."},
+    { "type": "DEFAULT", "from": "VILLAGEPATH", "to": "SHOP", "direction": "SOUTH", "description": "To the SOUTH is a shop."},
+    { "type": "DEFAULT", "from": "VILLAGEPATH", "to": "CROSSROADS", "direction": "EAST", "description": "To the EAST is a crossroads."},
+
+    { "type": "DEFAULT", "from": "HOUSE", "to": "VILLAGEPATH", "direction": "SOUTH", "description": "To the SOUTH is a path"},
+    { "type": "DOOR", "from": "HOUSE", "to": "ROOM", "door": "DOOR"},
+
+    { "type": "DOOR", "from": "ROOM", "to": "HOUSE", "door": "DOOR"},
+    { "type": "DEFAULT", "from": "ROOM", "to": "STAIRCASE-GROUND", "direction": "NORTH", "description": "To the NORTH is a narrow wooden staircase."},
+
+    { "type": "DEFAULT", "from": "STAIRCASE-GROUND", "to": "ROOM", "direction": "SOUTH", "description": "To the SOUTH is a small room."},
+    { "type": "DEFAULT", "from": "STAIRCASE-GROUND", "to": "STAIRCASE-FIRST", "direction": "UP", "description": "The staircase leads UP to the first floor."},
+
+    { "type": "DEFAULT", "from": "STAIRCASE-FIRST", "to": "STAIRCASE-GROUND", "direction": "DOWN", "description": "The staircase leads DOWN to the ground floor."},
+
+
+    { "type": "DOOR", "from": "SHOP", "to": "SHOPFLOOR", "door": "SHOP-DOOR"},
+
+    { "type": "DOOR", "from": "SHOPFLOOR", "to": "SHOP", "door": "SHOP-DOOR"},
+
+    { "type": "DEFAULT", "from": "FARMPATH", "to": "CROSSROADS", "direction": "WEST", "description": "To the WEST is a crossroads."},
+    { "type": "DEFAULT", "from": "FARMPATH", "to": "WHEATFIELD", "direction": "NORTH", "description": "To the NORTH is a large field of wheat"},
+    { "type": "DEFAULT", "from": "FARMPATH", "to": "SHEEPFIELD", "direction": "SOUTH", "description": "To the SOUTH is a small fenced off field"},
+    { "type": "DEFAULT", "from": "WHEATFIELD", "to": "FARMPATH", "direction": "SOUTH", "description": "To the SOUTH is a path leading through the farm"}
+  ],
+  "locationThings": [
+    {
+      "name": "ROOM",
+      "things": [
+        "DOOR"
+      ]
+    },
+    {
+      "name": "HOUSE",
+      "things": [
+        "DOOR"
+      ]
+    },
+    {
+      "name": "CROSSROADS",
+      "things": [
+        "Highwayman"
+      ]
+    },
+    {
+      "name": "WHEATFIELD",
+      "things": [
+        "Farmer",
+        "SWORD"
+      ]
+    },
+    {
+      "name": "SHOPFLOOR",
+      "things": [
+        "Shopkeeper"
+      ]
+    }
+  ],
+  "player": {
+    "stats": [],
+    "skills": []
+
+  }
+}
